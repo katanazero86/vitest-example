@@ -101,3 +101,65 @@ export default mergeConfig(viteConfig, defineConfig({
 ```
 
 - config 파일이 다른 위치에 있다면, `vitest --config ./path/other.config.js` 형식으로 사용이 가능하다.
+
+---
+
+### 작업공간(workspace)
+
+- 작업 공간을 할당하여, 동일한 프로젝트내에서도 다양한 테스트 구성을 하여 실행
+- vitest.workspace.js 에서 설정이 가능
+
+```
+import { defineWorkspace } from 'vitest/config'
+
+// defineWorkspace provides a nice type hinting DX
+export default defineWorkspace([
+  'packages/*',
+  {
+    // add "extends" to merge two configs together
+    extends: './vite.config.js',
+    test: {
+      include: ['tests/**/*.{browser}.test.{ts,js}'],
+      // it is recommended to define a name when using inline configs
+      name: 'happy-dom',
+      environment: 'happy-dom',
+    }
+  },
+  {
+    test: {
+      include: ['tests/**/*.{node}.test.{ts,js}'],
+      name: 'node',
+      environment: 'node',
+    }
+  }
+])
+```
+
+```
+import {defineWorkspace} from "vitest/config";
+
+export default defineWorkspace([
+    {
+        test: {
+            include: ['src/tests/*.test.{js,ts}'],
+            name: 'default',
+            environment: 'node'
+        }
+    },
+    {
+        test: {
+            include: ['src/tests/work1/*.test.{js,ts}'],
+            name: 'work1',
+            environment: 'node'
+        }
+    },
+    {
+        test: {
+            include: ['src/tests/work2/*.test.{js,ts}'],
+            name: 'work2',
+            environment: 'jsdom'
+        }
+    }
+])
+```
+- 위와 같이 작성을 하였으며, jsdom 패키지를 추가해줘야한다. `npm i -D jsdom`
