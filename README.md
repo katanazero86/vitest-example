@@ -24,7 +24,7 @@ npm i -D vitest
 ```
 mkdir src
 cd src
-mkdri tests
+mkdir tests
 ```
 
 - package.json scripts 를 아래와 같이 수정
