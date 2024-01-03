@@ -226,3 +226,79 @@ test('mocking', () => {
    expect(fakeFn2.mock.results.length).toBe(2);
 })
 ```
+
+---
+
+### Coverage(커버리지)
+
+- 테스트 커버리지 설정을 위해, vitest.config.js 작성이 필요
+```
+import { defineConfig} from "vitest/config";
+
+export default defineConfig({
+    test: {
+        coverage: {
+            provider: 'istanbul' // or v8
+        }
+    }
+})
+```
+
+- istanbul | v8
+```
+npm i -D @vitest/coverage-v8
+npm i -D @vitest/coverage-istanbul
+```
+
+- package.json scripts 수정
+
+```
+"test:coverage" : "vitest run --coverage"
+```
+
+![img.png](imgs/img3.png)
+
+- 프로젝트 최상위 경로를 보면, coverage 폴더가 생성된 부분 확인이 가능하다.
+
+---
+
+### Repost
+
+- 테스트 결과를 원하는 양식으로 설정하여 생성이 가능하다.
+
+```
+import { defineConfig} from "vitest/config";
+
+export default defineConfig({
+    test: {
+        reporters: ['json', 'default'],
+        outputFile: './test-result.json',
+        coverage: {
+            provider: 'istanbul' // or v8
+        }
+    }
+})
+```
+
+- reports 의 종류는 junit, json, verbose, dot, html 등을 제공해준다.
+- html 을 사용하고자 한다면, `@vitest/ui` 패키지가 필요하다.
+
+```
+/// <reference types="vitest" />
+import { defineConfig} from "vitest/config";
+
+export default defineConfig({
+    test: {
+        reporters: ['json', 'html', 'default'],
+        outputFile: {
+            json: './test-result.json',
+        },
+        coverage: {
+            provider: 'istanbul' // or v8
+        }
+    }
+})
+```
+
+- 리포터 별로 출력 파일 설정이 가능하며, reporters 에 배열로 나열하면 각각에 리포터를 자동으로 생성해준다.
+![img.png](imgs/img4.png)

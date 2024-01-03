@@ -4,12 +4,16 @@
   "description": "---",
   "main": "index.js",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "html": "npx vite preview --outDir ./html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@vitest/coverage-istanbul": "^1.1.1",
+    "@vitest/ui": "^1.1.1",
     "jsdom": "^23.0.1",
     "vitest": "^1.1.1"
   }
