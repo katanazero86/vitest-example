@@ -262,7 +262,7 @@ npm i -D @vitest/coverage-istanbul
 
 ---
 
-### Repost
+### Reporter
 
 - 테스트 결과를 원하는 양식으로 설정하여 생성이 가능하다.
 
